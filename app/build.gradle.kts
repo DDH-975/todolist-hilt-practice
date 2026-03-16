@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -53,6 +54,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.25")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
     kapt("androidx.room:room-compiler:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     testImplementation(libs.junit)

@@ -1,10 +1,13 @@
 package com.project.todolistkotlin.roomDB
 
-import android.app.Application
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class TodoRepository private constructor(private val dao: TodoDao) {
+@Singleton
+class TodoRepository @Inject constructor(
+    private val dao: TodoDao
+) {
     val allData: LiveData<List<TodoEntity>> = dao.getAllData()
 
     suspend fun insertData(todoEntity: TodoEntity) {
@@ -13,18 +16,6 @@ class TodoRepository private constructor(private val dao: TodoDao) {
 
     suspend fun deleteDataById(id: Int) {
         dao.deleteDataWhereId(id)
-    }
-
-
-    companion object {
-        @Volatile
-        private var INSTANCE: TodoRepository? = null
-        fun getInstance(application: Application): TodoRepository =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: TodoRepository(
-                    TodoDataBase.getInstance(application).dao()
-                ).also { INSTANCE = it }
-            }
     }
 }
 

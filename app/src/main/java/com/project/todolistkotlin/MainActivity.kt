@@ -3,21 +3,21 @@ package com.project.todolistkotlin
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.todolistkotlin.databinding.ActivityMainBinding
 import com.project.todolistkotlin.roomDB.TodoEntity
-import com.project.todolistkotlin.roomDB.TodoRepository
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoAdapter: TodoAdapter
-    private lateinit var todoViewModel: TodoViewModel
+    private val todoViewModel: TodoViewModel by viewModels()
     private lateinit var managerLayout: LinearLayoutManager
-    private lateinit var repo: TodoRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +29,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        repo = TodoRepository.getInstance(application)
-        todoViewModel = ViewModelProvider(
-            this,
-            TodoViewModelFactory(repo)
-        )[TodoViewModel::class.java]
 
         managerLayout = LinearLayoutManager(this)
 

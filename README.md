@@ -63,7 +63,7 @@ object DatabaseModule {
     }
 }
 ```
-> **핵심 포인트**: Database는 `@Singleton`으로 앱 전역에서 하나만 존재하도록 관리하며, DAO는 생성된 Database 인스턴스를 통해 제공됩니다.
+>  Database는 `@Singleton`으로 앱 전역에서 하나만 존재하도록 관리하며, DAO는 생성된 Database 인스턴스를 통해 제공됩니다.
 
 ### 3️⃣ Repository
 데이터 처리를 담당하는 계층으로, DAO를 주입받아 사용합니다.
@@ -74,7 +74,7 @@ class TodoRepository @Inject constructor(
     private val dao: TodoDao
 )
 ```
-* **특징**: 직접 만든 클래스이므로 `@Inject constructor`를 사용하여 Hilt가 자동으로 생성하도록 설정합니다. 별도의 `@Provides` 설정이 필요 없습니다.
+*  직접 만든 클래스이므로 `@Inject constructor`를 사용하여 Hilt가 자동으로 생성하도록 설정합니다. 별도의 `@Provides` 설정이 필요 없습니다.
 
 ### 4️⃣ ViewModel
 UI와 데이터를 연결하며 Repository를 주입받습니다.
@@ -85,7 +85,7 @@ class TodoViewModel @Inject constructor(
     private val repo: TodoRepository
 ) : ViewModel()
 ```
-* **특징**: `@HiltViewModel` 어노테이션을 통해 Hilt가 ViewModel의 생명주기를 자동으로 관리합니다.
+*  `@HiltViewModel` 어노테이션을 통해 Hilt가 ViewModel의 생명주기를 자동으로 관리합니다.
 
 ### 5️⃣ View (Activity)
 Hilt를 사용할 Android 컴포넌트임을 명시합니다.
@@ -94,7 +94,7 @@ Hilt를 사용할 Android 컴포넌트임을 명시합니다.
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity()
 ```
-* **특징**: `@AndroidEntryPoint`가 선언된 곳에서만 Hilt를 통한 의존성 주입이 가능합니다.
+*  `@AndroidEntryPoint`가 선언된 곳에서만 Hilt를 통한 의존성 주입이 가능합니다.
 
 ---
 
